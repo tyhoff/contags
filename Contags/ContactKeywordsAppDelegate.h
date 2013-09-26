@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegateProtocol.h"
 
-@interface ContactKeywordsAppDelegate : UIResponder <UIApplicationDelegate>
+@interface ContactKeywordsAppDelegate : UIResponder <UIApplicationDelegate, AppDelegateProtocol>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (nonatomic, retain) ContagsAppDataObject* getContagsDataObject;
 
 @end

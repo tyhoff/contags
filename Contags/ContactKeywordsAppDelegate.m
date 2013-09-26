@@ -7,12 +7,14 @@
 //
 
 #import "ContactKeywordsAppDelegate.h"
+#import "ContagsAppDataObject.h"
 
 @implementation ContactKeywordsAppDelegate
+@synthesize getContagsDataObject;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.getContagsDataObject = [[ContagsAppDataObject alloc] init];
     return YES;
 }
 							
