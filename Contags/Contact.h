@@ -7,11 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AddressBookUI/AddressBookUI.h>
 
 @interface Contact : NSObject
 
-@property (nonatomic, strong) NSString *firstname;
-@property (nonatomic, strong) NSString *lastname;
+@property ABRecordRef recordID;
+@property NSInteger sectionNumber;
+@property (nonatomic, strong) NSString *fullName;
+@property (nonatomic, strong) NSString *firstName;
+@property (nonatomic, strong) NSString *lastName;
+@property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSMutableArray *tags;
+
+- (NSString*)sorterFirstName;
+- (NSString*)sorterLastName;
 
 @end

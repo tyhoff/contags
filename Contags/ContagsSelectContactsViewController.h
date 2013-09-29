@@ -10,4 +10,8 @@
 
 @interface ContagsSelectContactsViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) NSString *tag;
+
+-(void)setTagData:(NSString *)tag;
+
 @end

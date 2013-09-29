@@ -10,8 +10,18 @@
 
 @implementation TagCounter
 
-@synthesize name;
+@synthesize str;
 @synthesize count;
+
+-(id)initWithName:(NSString *)name NumberOfOccurences:(NSInteger)number;
+{
+    self = [super init];
+    if (self) {
+        str = name;
+        count = number;
+    }
+    return self;
+}
 
 -(void)incrementCount
 {

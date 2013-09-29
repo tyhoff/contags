@@ -8,6 +8,10 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "Contact.h"
 
+@interface ContagsAppDataObject ()
+@property (nonatomic, assign) ABAddressBookRef addressBookRef;
+
+@end
 
 @implementation ContagsAppDataObject
 {
@@ -16,6 +20,8 @@
     NSMutableOrderedSet *tagBucket;
     NSInteger numTags;
     BOOL updateFlag;
+    
+    NSMutableArray *_listContent;
 }
 
 
@@ -23,19 +29,107 @@
 {
     self = [super init];
     if (self) {
-        [self setupContactDatabase];
+        _addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
+        [self checkAddressBookAccess];
         updateFlag = YES;
-        
-        
-        NSMutableDictionary * dict = [[NSMutableDictionary alloc] init];
-        dict 
-        
-        
-        
     }
     return self;
 }
 
+// Check the authorization status of our application for Address Book
+-(void)checkAddressBookAccess
+{
+    switch (ABAddressBookGetAuthorizationStatus())
+    {
+            // Update our UI if the user has granted access to their Contacts
+        case  kABAuthorizationStatusAuthorized:
+            [self accessGrantedForAddressBook];
+            break;
+            // Prompt the user for access to Contacts if there is no definitive answer
+        case  kABAuthorizationStatusNotDetermined :
+            [self requestAddressBookAccess];
+            break;
+            // Display a message if the user has denied or restricted access to Contacts
+        case  kABAuthorizationStatusDenied:
+        case  kABAuthorizationStatusRestricted:
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Privacy Warning"
+                                                            message:@"Permission was not granted for Contacts."
+                                                           delegate:nil
+                                                  cancelButtonTitle:@"OK"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
+            break;
+        default:
+            break;
+    }
+}
+
+// Prompt the user for access to their Address Book data
+-(void)requestAddressBookAccess
+{
+    ContagsAppDataObject * __weak weakSelf = self;
+    
+    ABAddressBookRequestAccessWithCompletion(_addressBookRef, ^(bool granted, CFErrorRef error)
+     {
+         if (granted)
+         {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [weakSelf accessGrantedForAddressBook];
+                 
+             });
+         }
+     });
+}
+
+// This method is called when the user has granted access to their address book data.
+-(void)accessGrantedForAddressBook
+{
+    if (contactDatabase == nil)
+    {
+        contactDatabase = [[NSMutableArray alloc] init];
+    }
+
+    contactArray = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(_addressBookRef);
+    int numContacts = ABAddressBookGetPersonCount(_addressBookRef);
+    
+    for (int i = 0; i < numContacts; i++)
+    {
+        ABRecordRef contactRecord = (__bridge ABRecordRef)contactArray[i];
+        
+        if (!contactRecord)
+            continue;
+        
+        NSString *abFullName = (__bridge_transfer NSString *)ABRecordCopyCompositeName(contactRecord);
+        NSString *abFirstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactRecord, kABPersonFirstNameProperty);
+        NSString *abLastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactRecord, kABPersonLastNameProperty);
+        NSString *abNotes = (__bridge_transfer NSString *)ABRecordCopyValue(contactRecord, kABPersonNoteProperty);
+        
+        Contact *contact = [[Contact alloc] init];
+        
+        NSString *fullName;
+        
+        if (abFullName != nil) {
+            fullName = abFullName;
+        } else {
+            if (abLastName != nil)
+            {
+                fullName = [NSString stringWithFormat:@"%@ %@", abFirstName, abLastName];
+            }
+        }
+        
+        contact.recordID = contactRecord;
+        contact.fullName = fullName;
+        contact.firstName = (abFirstName) ? abFirstName : @"";
+        contact.lastName = (abLastName) ? abLastName : @"";
+        contact.tags = [self findTagsInNotesField:abNotes];
+        
+        //        NSLog(@"Index: %d\nFirst Name: %@\nLast Name: %@\nNotes: %@\n",i ,  contact.firstname, contact.lastname, notes);
+        
+        [contactDatabase addObject:contact];
+    }
+}
 
 -(NSInteger)getTagListSize
 {
@@ -79,89 +173,6 @@
 }
 
 
-
-
--(BOOL)setupContactDatabase
-{
-    if (contactDatabase == nil)
-    {
-        contactDatabase = [[NSMutableArray alloc] init];
-    }
-
-    
-    __block bool accessToContacts = NO;
-    
-    ABAddressBookRef addressBookRef = ABAddressBookCreateWithOptions(NULL, NULL);
-    
-    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined) {
-        ABAddressBookRequestAccessWithCompletion(addressBookRef, ^(bool granted, CFErrorRef error) {
-            accessToContacts = YES;
-        });
-    }
-    else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized) {
-        accessToContacts = YES;
-    }
-    else {
-        NSLog(@"No access to contacts");
-        accessToContacts = NO;
-    }
-    
-    
-    
-    if (accessToContacts)
-    {
-        contactArray = (__bridge_transfer NSArray*)ABAddressBookCopyArrayOfAllPeople(addressBookRef);
-    }
-    else
-    {
-        contactArray = nil;
-    }
-    
-    if (accessToContacts)
-    {
-        [self populateContactList];
-    }
-    
-    CFRelease(addressBookRef);
-    
-    return accessToContacts;
-}
-
-//recordId = [[dict objectForKey:@"hello"] intValue];
-
-- (void)populateContactList
-{
-    
-    NSUInteger i = 0;
-    for (i = 0; i < [contactArray count]; i++)
-    {
-        Contact *contact = [[Contact alloc] init];
-        
-        ABRecordRef contactPerson = (__bridge ABRecordRef)contactArray[i];
-        
-        NSString *firstName = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonFirstNameProperty);
-        NSString *lastName =  (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonLastNameProperty);
-        NSString *notes = (__bridge_transfer NSString *)ABRecordCopyValue(contactPerson, kABPersonNoteProperty);
-        
-        contact.firstname = firstName;
-        contact.lastname = lastName;
-        contact.tags = [self findTagsInNotesField:notes];
-        
-//        NSLog(@"Index: %d\nFirst Name: %@\nLast Name: %@\nNotes: %@\n",i ,  contact.firstname, contact.lastname, notes);
-        
-        [contactDatabase addObject:contact];
-    }
-    
-    [contactDatabase sortUsingComparator:^(id o1, id o2) {
-        Contact *c1 = (Contact *)o1;
-        Contact *c2 = (Contact *)o2;
-        
-        return [c1.lastname compare:c2.lastname options:NSCaseInsensitiveSearch];
-    }];
-}
-
-
-
 -(NSMutableArray *)findTagsInNotesField:(NSString *)notesField
 {
     if (notesField != nil)
@@ -187,15 +198,97 @@
         tags = [[firstMatch componentsSeparatedByString:@","] mutableCopy];
         for (int i=0; i<[tags count]; i++)
         {
-            tags[i] = [tags[i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-            
+            NSString * str = [tags[i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+            if ([str isEqualToString:@""])
+            {
+                [tags removeObjectAtIndex:i];
+            }
+            else
+            {
+                tags[i] = str;
+            }
+
         }
         
-        return tags;
+        return [[tags sortedArrayUsingComparator:^(id o1, id o2) {
+            NSString *str1 = (NSString *)o1;
+            NSString *str2 = (NSString *)o2;
+            
+            return [str1 compare:str2 options:NSCaseInsensitiveSearch];
+        }] mutableCopy];
     }
     else
     {
         return nil;
+    }
+}
+
+- (void) saveContactTagsToAddressBook:(Contact *)contact
+{
+    NSString *abNotes = (__bridge_transfer NSString *)ABRecordCopyValue(contact.recordID, kABPersonNoteProperty);
+    
+    NSString * tagsDataStr = @"";
+    if ([contact.tags count])
+        tagsDataStr = [NSString stringWithFormat:@"#{%@}", [contact.tags componentsJoinedByString:@", "]];
+    
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"#\\{(.*)\\} *$"
+                                                                           options:NSRegularExpressionCaseInsensitive
+                                                                             error:nil];
+    
+    if (abNotes)
+    {
+        // use regular expression to replace the emoji
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"#\\{(.*)\\} *$"
+                                                                               options:NSRegularExpressionCaseInsensitive
+                                                                                 error:nil];
+        
+        NSInteger numMatches = [regex numberOfMatchesInString:abNotes
+                                                      options:0
+                                                        range:NSMakeRange(0, [abNotes length])];
+        
+        if (numMatches <= 0)
+        {
+            abNotes = [abNotes stringByAppendingString:[NSString stringWithFormat:@"\n\n%@", tagsDataStr]];
+        }
+        else if (numMatches == 1)
+        {
+            abNotes = [regex stringByReplacingMatchesInString:abNotes
+                                                      options:0
+                                                        range:NSMakeRange(0, [abNotes length])
+                                                 withTemplate:tagsDataStr];
+        }
+        else
+        {
+            NSLog(@"ERROR: Too many contags data strings in contact %@ %@. numMatches: %d\n", contact.firstName, contact.lastName, numMatches);
+            return;
+        }
+        
+
+    }
+    else if ([tagsDataStr isEqualToString:@"#{}"])
+    {
+        abNotes = [regex stringByReplacingMatchesInString:abNotes
+                                                  options:0
+                                                    range:NSMakeRange(0, [abNotes length])
+                                             withTemplate:@""];
+    }
+    else
+    {
+        abNotes = tagsDataStr;
+    }
+    
+    abNotes = [abNotes stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    CFErrorRef cferror;
+    ABRecordSetValue(contact.recordID, kABPersonNoteProperty, (__bridge CFTypeRef)(abNotes), &cferror);
+    ABAddressBookSave(_addressBookRef, &cferror);
+}
+
+- (void)dealloc
+{
+    if(_addressBookRef)
+    {
+        CFRelease(_addressBookRef);
     }
 }
 

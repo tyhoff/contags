@@ -13,7 +13,10 @@
 @interface ContagsSelectContactsViewController ()
 {
     ContagsAppDataObject *contagsObject;
-    NSMutableArray *_contactObjects;
+    NSMutableArray *allContacts;
+    NSMutableArray *contactsWithTag;
+    NSMutableArray *contactsWithoutTag;
+
 }
 
 @end
@@ -24,9 +27,16 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        
+
     }
     return self;
+}
+
+- (void)setTagData:(NSString *)tag
+{
+    if (_tag != tag) {
+        _tag = tag;
+    }
 }
 
 - (void)viewDidLoad
@@ -40,6 +50,35 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     contagsObject = [self getContagsDataObject];
+    
+    allContacts = contagsObject.getContactDatabase;
+    contactsWithTag = [[NSMutableArray alloc] init];
+    contactsWithoutTag = [[NSMutableArray alloc] init];
+    
+    [self hideTabBar];
+    
+    for (Contact *c in allContacts)
+    {
+        BOOL withTag = NO;
+        for (NSString * tag in c.tags)
+        {
+            if ([tag isEqualToString:_tag])
+            {
+                [contactsWithTag addObject:c];
+                withTag = YES;
+                break;
+            }
+        }
+        if (withTag == NO)
+        {
+            [contactsWithoutTag addObject:c];
+        }
+    }
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [self showTabBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,15 +104,24 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 1;
+    return [contagsObject.getContactDatabase count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SelectContactCell" forIndexPath:indexPath];
+    Contact *contact = contagsObject.getContactDatabase[indexPath.row];
     
-    cell.textLabel.text = @"Hey";
+    if ([contactsWithTag containsObject:contact])
+    {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    else
+    {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
+    cell.textLabel.text = [NSString stringWithFormat:@"%@ %@", contact.firstName, contact.lastName];
     return cell;
 }
 
@@ -83,12 +131,50 @@
     if (cell.accessoryType == UITableViewCellAccessoryNone)
     {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        Contact *c = [allContacts objectAtIndex:indexPath.row];
+        [contactsWithoutTag removeObject:c];
+        [contactsWithTag addObject:c];
     }
     else
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
+        Contact *c = [allContacts objectAtIndex:indexPath.row];
+        [contactsWithTag removeObject:c];
+        [contactsWithoutTag addObject:c];
     }
+}
+
+- (void)hideTabBar {
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UIView *parent = tabBar.superview; // UILayoutContainerView
+    UIView *content = [parent.subviews objectAtIndex:0];  // UITransitionView
+    UIView *window = parent.superview;
     
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         CGRect tabFrame = tabBar.frame;
+                         tabFrame.origin.y = CGRectGetMaxY(window.bounds);
+                         tabBar.frame = tabFrame;
+                         content.frame = window.bounds;
+                     }];
+    
+}
+
+- (void)showTabBar {
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UIView *parent = tabBar.superview; // UILayoutContainerView
+    UIView *content = [parent.subviews objectAtIndex:0];  // UITransitionView
+    UIView *window = parent.superview;
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         CGRect tabFrame = tabBar.frame;
+                         tabFrame.origin.y = CGRectGetMaxY(window.bounds) - CGRectGetHeight(tabBar.frame);
+                         tabBar.frame = tabFrame;
+                         
+                         CGRect contentFrame = content.frame;
+                         contentFrame.size.height -= tabFrame.size.height;
+                     }];
 }
 
 /*

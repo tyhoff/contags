@@ -48,6 +48,15 @@
     contagsObject = [self getContagsDataObject];
     nonAssociatedTags = [contagsObject.getTagList mutableCopy];
     [nonAssociatedTags removeObjectsInArray:_contact.tags];
+    
+    [self hideTabBar];
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [contagsObject saveContactTagsToAddressBook:_contact];
+    [self showTabBar];
+
 }
 
 - (void)didReceiveMemoryWarning
@@ -108,9 +117,20 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.section == 1)
     {
-        NSInteger toRow = [self.tableView numberOfRowsInSection:0];
         NSString * removed = [nonAssociatedTags objectAtIndex:indexPath.row];
         [nonAssociatedTags removeObjectAtIndex:indexPath.row];
+        
+        NSUInteger toRow = [_contact.tags indexOfObject:removed
+                                              inSortedRange:(NSRange){0, [_contact.tags count]}
+                                                    options:NSBinarySearchingInsertionIndex
+                                            usingComparator:^(id o1, id o2) {
+                                                NSString *str1 = (NSString *)o1;
+                                                NSString *str2 = (NSString *)o2;
+                                                
+                                                return [str1 compare:str2 options:NSCaseInsensitiveSearch];
+                                            }];
+
+        
         [_contact.tags insertObject:removed atIndex:toRow];
 
         [self.tableView beginUpdates];
@@ -148,7 +168,6 @@
         
         cell.accessoryType = UITableViewCellAccessoryNone;
     }
-    
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -186,5 +205,39 @@
     return YES;
 }
 */
+
+
+- (void)hideTabBar {
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UIView *parent = tabBar.superview; // UILayoutContainerView
+    UIView *content = [parent.subviews objectAtIndex:0];  // UITransitionView
+    UIView *window = parent.superview;
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         CGRect tabFrame = tabBar.frame;
+                         tabFrame.origin.y = CGRectGetMaxY(window.bounds);
+                         tabBar.frame = tabFrame;
+                         content.frame = window.bounds;
+                     }];
+    
+}
+
+- (void)showTabBar {
+    UITabBar *tabBar = self.tabBarController.tabBar;
+    UIView *parent = tabBar.superview; // UILayoutContainerView
+    UIView *content = [parent.subviews objectAtIndex:0];  // UITransitionView
+    UIView *window = parent.superview;
+    
+    [UIView animateWithDuration:0.3
+                     animations:^{
+                         CGRect tabFrame = tabBar.frame;
+                         tabFrame.origin.y = CGRectGetMaxY(window.bounds) - CGRectGetHeight(tabBar.frame);
+                         tabBar.frame = tabFrame;
+                         
+                         CGRect contentFrame = content.frame;
+                         contentFrame.size.height -= tabFrame.size.height;
+                     }];
+}
 
 @end

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F0B873317EF92A4003CBDF2 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F0B873217EF92A4003CBDF2 /* CoreText.framework */; };
+		2F0B873917EFA9E5003CBDF2 /* ContagsSelectContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F0B873817EFA9E5003CBDF2 /* ContagsSelectContactsViewController.m */; };
 		2F45D0AD17EE11500009890A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F45D0AC17EE11500009890A /* Foundation.framework */; };
 		2F45D0AF17EE11500009890A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F45D0AE17EE11500009890A /* CoreGraphics.framework */; };
 		2F45D0B117EE11500009890A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F45D0B017EE11500009890A /* UIKit.framework */; };
@@ -14,14 +16,18 @@
 		2F45D0B917EE11500009890A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45D0B817EE11500009890A /* main.m */; };
 		2F45D0BD17EE11500009890A /* ContactKeywordsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45D0BC17EE11500009890A /* ContactKeywordsAppDelegate.m */; };
 		2F45D0C017EE11500009890A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F45D0BE17EE11500009890A /* Main.storyboard */; };
-		2F45D0C317EE11500009890A /* ContactKeywordsFirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45D0C217EE11500009890A /* ContactKeywordsFirstViewController.m */; };
-		2F45D0C617EE11500009890A /* ContactKeywordsSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45D0C517EE11500009890A /* ContactKeywordsSecondViewController.m */; };
 		2F45D0C817EE11500009890A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F45D0C717EE11500009890A /* Images.xcassets */; };
 		2F45D0CF17EE11500009890A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F45D0CE17EE11500009890A /* XCTest.framework */; };
 		2F45D0D017EE11500009890A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F45D0AC17EE11500009890A /* Foundation.framework */; };
 		2F45D0D117EE11500009890A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F45D0B017EE11500009890A /* UIKit.framework */; };
 		2F45D0D917EE11500009890A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2F45D0D717EE11500009890A /* InfoPlist.strings */; };
 		2F45D0DB17EE11500009890A /* ContagsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45D0DA17EE11500009890A /* ContagsTests.m */; };
+		2F45D12A17EE2D280009890A /* ContagsTagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F45D12917EE2D280009890A /* ContagsTagViewController.m */; };
+		2F85828717F2AEDD00B1CED6 /* TagCounter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F85828617F2AEDD00B1CED6 /* TagCounter.m */; };
+		2FB78D1F17F0DC02002DE3AE /* ContagsSelectTagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB78D1E17F0DC02002DE3AE /* ContagsSelectTagsViewController.m */; };
+		2FDEF54817EE6EEF0049AA23 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDEF54717EE6EEF0049AA23 /* Contact.m */; };
+		2FDEF54B17EF74EA0049AA23 /* ContagsContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FDEF54A17EF74EA0049AA23 /* ContagsContactViewController.m */; };
+		2FEEE69617EFE398001500B9 /* ContagsAppDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEEE69417EFE398001500B9 /* ContagsAppDataObject.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F0B873217EF92A4003CBDF2 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		2F0B873717EFA9E5003CBDF2 /* ContagsSelectContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContagsSelectContactsViewController.h; sourceTree = "<group>"; };
+		2F0B873817EFA9E5003CBDF2 /* ContagsSelectContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContagsSelectContactsViewController.m; sourceTree = "<group>"; };
 		2F45D0A917EE11500009890A /* Contags.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Contags.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F45D0AC17EE11500009890A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2F45D0AE17EE11500009890A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -46,16 +55,25 @@
 		2F45D0BB17EE11500009890A /* ContactKeywordsAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactKeywordsAppDelegate.h; sourceTree = "<group>"; };
 		2F45D0BC17EE11500009890A /* ContactKeywordsAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactKeywordsAppDelegate.m; sourceTree = "<group>"; };
 		2F45D0BF17EE11500009890A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2F45D0C117EE11500009890A /* ContactKeywordsFirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactKeywordsFirstViewController.h; sourceTree = "<group>"; };
-		2F45D0C217EE11500009890A /* ContactKeywordsFirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactKeywordsFirstViewController.m; sourceTree = "<group>"; };
-		2F45D0C417EE11500009890A /* ContactKeywordsSecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactKeywordsSecondViewController.h; sourceTree = "<group>"; };
-		2F45D0C517EE11500009890A /* ContactKeywordsSecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactKeywordsSecondViewController.m; sourceTree = "<group>"; };
 		2F45D0C717EE11500009890A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		2F45D0CD17EE11500009890A /* ContagsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ContagsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F45D0CE17EE11500009890A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		2F45D0D617EE11500009890A /* ContagsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ContagsTests-Info.plist"; sourceTree = "<group>"; };
 		2F45D0D817EE11500009890A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2F45D0DA17EE11500009890A /* ContagsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContagsTests.m; sourceTree = "<group>"; };
+		2F45D12817EE2D280009890A /* ContagsTagViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContagsTagViewController.h; sourceTree = "<group>"; };
+		2F45D12917EE2D280009890A /* ContagsTagViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContagsTagViewController.m; sourceTree = "<group>"; };
+		2F85828517F2AEC500B1CED6 /* TagCounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagCounter.h; sourceTree = "<group>"; };
+		2F85828617F2AEDD00B1CED6 /* TagCounter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagCounter.m; sourceTree = "<group>"; };
+		2FB78D1D17F0DC02002DE3AE /* ContagsSelectTagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContagsSelectTagsViewController.h; sourceTree = "<group>"; };
+		2FB78D1E17F0DC02002DE3AE /* ContagsSelectTagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContagsSelectTagsViewController.m; sourceTree = "<group>"; };
+		2FDEF54617EE6EEF0049AA23 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		2FDEF54717EE6EEF0049AA23 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		2FDEF54917EF74EA0049AA23 /* ContagsContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContagsContactViewController.h; sourceTree = "<group>"; };
+		2FDEF54A17EF74EA0049AA23 /* ContagsContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContagsContactViewController.m; sourceTree = "<group>"; };
+		2FEEE68E17EFE290001500B9 /* AppDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegateProtocol.h; sourceTree = "<group>"; };
+		2FEEE69417EFE398001500B9 /* ContagsAppDataObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContagsAppDataObject.m; sourceTree = "<group>"; };
+		2FEEE69517EFE398001500B9 /* ContagsAppDataObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContagsAppDataObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F0B873317EF92A4003CBDF2 /* CoreText.framework in Frameworks */,
 				2F45D0AF17EE11500009890A /* CoreGraphics.framework in Frameworks */,
 				2F45D0B117EE11500009890A /* UIKit.framework in Frameworks */,
 				2F45D0AD17EE11500009890A /* Foundation.framework in Frameworks */,
@@ -82,6 +101,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F0B873417EFA93B003CBDF2 /* Tags */ = {
+			isa = PBXGroup;
+			children = (
+				2F45D12817EE2D280009890A /* ContagsTagViewController.h */,
+				2F45D12917EE2D280009890A /* ContagsTagViewController.m */,
+				2F0B873717EFA9E5003CBDF2 /* ContagsSelectContactsViewController.h */,
+				2F0B873817EFA9E5003CBDF2 /* ContagsSelectContactsViewController.m */,
+			);
+			name = Tags;
+			sourceTree = "<group>";
+		};
+		2F0B873517EFA944003CBDF2 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				2FDEF54917EF74EA0049AA23 /* ContagsContactViewController.h */,
+				2FDEF54A17EF74EA0049AA23 /* ContagsContactViewController.m */,
+				2FB78D1D17F0DC02002DE3AE /* ContagsSelectTagsViewController.h */,
+				2FB78D1E17F0DC02002DE3AE /* ContagsSelectTagsViewController.m */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		2F0B873617EFA96B003CBDF2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2FEEE69517EFE398001500B9 /* ContagsAppDataObject.h */,
+				2FEEE69417EFE398001500B9 /* ContagsAppDataObject.m */,
+				2FEEE68717EFB010001500B9 /* Objects */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		2F45D0A017EE114F0009890A = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +155,7 @@
 		2F45D0AB17EE11500009890A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2F0B873217EF92A4003CBDF2 /* CoreText.framework */,
 				2F45D0AC17EE11500009890A /* Foundation.framework */,
 				2F45D0AE17EE11500009890A /* CoreGraphics.framework */,
 				2F45D0B017EE11500009890A /* UIKit.framework */,
@@ -115,13 +167,13 @@
 		2F45D0B217EE11500009890A /* Contags */ = {
 			isa = PBXGroup;
 			children = (
+				2FEEE68E17EFE290001500B9 /* AppDelegateProtocol.h */,
 				2F45D0BB17EE11500009890A /* ContactKeywordsAppDelegate.h */,
 				2F45D0BC17EE11500009890A /* ContactKeywordsAppDelegate.m */,
 				2F45D0BE17EE11500009890A /* Main.storyboard */,
-				2F45D0C117EE11500009890A /* ContactKeywordsFirstViewController.h */,
-				2F45D0C217EE11500009890A /* ContactKeywordsFirstViewController.m */,
-				2F45D0C417EE11500009890A /* ContactKeywordsSecondViewController.h */,
-				2F45D0C517EE11500009890A /* ContactKeywordsSecondViewController.m */,
+				2F0B873417EFA93B003CBDF2 /* Tags */,
+				2F0B873617EFA96B003CBDF2 /* Models */,
+				2F0B873517EFA944003CBDF2 /* Contacts */,
 				2F45D0C717EE11500009890A /* Images.xcassets */,
 				2F45D0B317EE11500009890A /* Supporting Files */,
 			);
@@ -155,6 +207,17 @@
 				2F45D0D717EE11500009890A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2FEEE68717EFB010001500B9 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				2FDEF54617EE6EEF0049AA23 /* Contact.h */,
+				2FDEF54717EE6EEF0049AA23 /* Contact.m */,
+				2F85828517F2AEC500B1CED6 /* TagCounter.h */,
+				2F85828617F2AEDD00B1CED6 /* TagCounter.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -255,10 +318,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F85828717F2AEDD00B1CED6 /* TagCounter.m in Sources */,
 				2F45D0B917EE11500009890A /* main.m in Sources */,
-				2F45D0C317EE11500009890A /* ContactKeywordsFirstViewController.m in Sources */,
+				2F0B873917EFA9E5003CBDF2 /* ContagsSelectContactsViewController.m in Sources */,
+				2FEEE69617EFE398001500B9 /* ContagsAppDataObject.m in Sources */,
+				2FB78D1F17F0DC02002DE3AE /* ContagsSelectTagsViewController.m in Sources */,
+				2FDEF54B17EF74EA0049AA23 /* ContagsContactViewController.m in Sources */,
+				2F45D12A17EE2D280009890A /* ContagsTagViewController.m in Sources */,
+				2FDEF54817EE6EEF0049AA23 /* Contact.m in Sources */,
 				2F45D0BD17EE11500009890A /* ContactKeywordsAppDelegate.m in Sources */,
-				2F45D0C617EE11500009890A /* ContactKeywordsSecondViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,6 +535,7 @@
 				2F45D0E017EE11500009890A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		2F45D0E117EE11500009890A /* Build configuration list for PBXNativeTarget "ContagsTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +544,7 @@
 				2F45D0E317EE11500009890A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

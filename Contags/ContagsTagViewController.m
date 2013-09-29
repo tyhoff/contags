@@ -7,6 +7,7 @@
 //
 
 #import "ContagsTagViewController.h"
+#import "ContagsSelectContactsViewController.h"
 #import "AppDelegateProtocol.h"
 #import "ContagsAppDataObject.h"
 
@@ -83,12 +84,7 @@
 
 // add the text given to the list of tags
 - (void) insertTagIntoTableView:(NSString *)text
-{
-    if (!_tagsList) {
-        _tagsList = [[NSMutableArray alloc] init];
-    }
-    
-    
+{   
     NSUInteger newIndex = [_tagsList indexOfObject:text
                                      inSortedRange:(NSRange){0, [_tagsList count]}
                                            options:NSBinarySearchingInsertionIndex
@@ -122,8 +118,7 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TagCell" forIndexPath:indexPath];
     
-    NSDate *object = _tagsList[indexPath.row];
-    cell.textLabel.text = [object description];
+    cell.textLabel.text = _tagsList[indexPath.row];
     return cell;
 }
 
@@ -159,13 +154,13 @@
  }
  */
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"showDetail"]) {
-//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-//        NSDate *object = _tagsList[indexPath.row];
-//        [[segue destinationViewController] setDetailItem:object];
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"showContacts"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        NSString *tag = _tagsList[indexPath.row];
+        [[segue destinationViewController] setTagData:tag];
+    }
+}
 
 @end

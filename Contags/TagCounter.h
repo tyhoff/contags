@@ -10,7 +10,10 @@
 
 @interface TagCounter : NSObject
 
-@property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSInteger count;
+@property (nonatomic, strong) NSString *str;
+@property (nonatomic) NSInteger count;
+
+-(id)initWithName:(NSString *)name NumberOfOccurences:(NSInteger)number;
+-(void)incrementCount;
 
 @end

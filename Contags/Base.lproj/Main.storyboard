@@ -28,16 +28,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="hHA-A9-ZhN">
+                            <rect key="frame" x="0.0" y="64" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Yes</string>
+                                <string>No</string>
+                            </scopeButtonTitles>
+                            <connections>
+                                <outlet property="delegate" destination="9Lu-Hy-ukD" id="7hr-w7-kZC"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCell" textLabel="hbm-Tz-eLT" style="IBUITableViewCellStyleDefault" id="Lqc-yM-dq9">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCell" textLabel="hbm-Tz-eLT" style="IBUITableViewCellStyleDefault" id="Lqc-yM-dq9">
+                                <rect key="frame" x="0.0" y="130" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lqc-yM-dq9" id="ubj-5A-8bT">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hbm-Tz-eLT">
-                                            <rect key="frame" x="15" y="0.0" width="270" height="43"/>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hbm-Tz-eLT">
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -45,9 +57,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="ijF-ie-Ndh" kind="push" identifier="showTags" id="LwW-do-Fpd"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -56,8 +65,30 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Contacts" id="fKb-76-p0U"/>
+                    <connections>
+                        <outlet property="searchBar" destination="hHA-A9-ZhN" id="NW3-qx-TPG"/>
+                        <outlet property="searchDisplayController" destination="Nrl-4R-XmN" id="INx-on-ZQ0"/>
+                        <segue destination="ijF-ie-Ndh" kind="push" identifier="showTags" id="Md4-7l-rcq"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JWA-tp-X9b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="fAg-m7-aPZ">
+                    <connections>
+                        <outlet property="delegate" destination="9Lu-Hy-ukD" id="Srj-34-RrV"/>
+                        <outlet property="searchContentsController" destination="9Lu-Hy-ukD" id="BmN-tM-gfe"/>
+                        <outlet property="searchResultsDataSource" destination="9Lu-Hy-ukD" id="0LS-7F-mQd"/>
+                        <outlet property="searchResultsDelegate" destination="9Lu-Hy-ukD" id="0gk-v3-mTR"/>
+                    </connections>
+                </searchDisplayController>
+                <searchDisplayController id="Nrl-4R-XmN">
+                    <connections>
+                        <outlet property="delegate" destination="9Lu-Hy-ukD" id="TvY-px-mzd"/>
+                        <outlet property="searchBar" destination="hHA-A9-ZhN" id="2D5-3j-gSj"/>
+                        <outlet property="searchContentsController" destination="9Lu-Hy-ukD" id="88y-Ww-Bkq"/>
+                        <outlet property="searchResultsDataSource" destination="9Lu-Hy-ukD" id="Ihf-YI-HWL"/>
+                        <outlet property="searchResultsDelegate" destination="9Lu-Hy-ukD" id="SXP-hy-cfp"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="919" y="-154"/>
         </scene>
@@ -132,7 +163,7 @@
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TagCell" textLabel="p3c-Y6-c2y" detailTextLabel="wkT-T1-LEI" style="IBUITableViewCellStyleValue1" id="EjH-XJ-FPU">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EjH-XJ-FPU">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EjH-XJ-FPU" id="dKZ-4W-cEl">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
@@ -153,7 +184,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="WpB-kx-wTh" kind="push" id="1um-vc-M7R"/>
+                                    <segue destination="WpB-kx-wTh" kind="push" identifier="showContacts" id="1um-vc-M7R"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

@@ -11,10 +11,10 @@
 
 @interface ContagsAppDataObject : NSObject
 
-
 -(NSMutableArray *)getContactDatabase;
 -(void)setUpdateFlag;
--(NSArray *)getTagList;
+-(NSMutableArray *)getTagList;
 -(NSInteger)getTagListSize;
+-(void)saveContactTagsToAddressBook:(Contact *)contact;
 
 @end

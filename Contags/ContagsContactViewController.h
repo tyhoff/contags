@@ -10,5 +10,6 @@
 #import <AddressBookUI/AddressBookUI.h>
 
 @interface ContagsContactViewController : UITableViewController
+    <UISearchBarDelegate, UISearchDisplayDelegate>
 
 @end
