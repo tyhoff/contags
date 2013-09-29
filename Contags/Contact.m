@@ -24,7 +24,12 @@
     return _tags;
 }
 
-- (NSString*)sorterFirstName {
+- (NSString *)getTagListString
+{
+    return [_tags componentsJoinedByString:@", "];
+}
+
+- (NSString *)sorterFirstName {
     if (nil != _firstName && ![_firstName isEqualToString:@""]) {
         return _firstName;
     }
@@ -37,7 +42,7 @@
     return nil;
 }
 
-- (NSString*)sorterLastName {
+- (NSString *)sorterLastName {
     if (nil != _lastName && ![_lastName isEqualToString:@""]) {
         return _lastName;
     }

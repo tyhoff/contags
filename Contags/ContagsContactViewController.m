@@ -274,6 +274,11 @@
             if (range.location != NSNotFound) {
                 [_filteredListContent addObject:contact];
             }
+            
+            range = [contact.getTagListString rangeOfString:searchText options:NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch];
+            if (range.location != NSNotFound) {
+                [_filteredListContent addObject:contact];
+            }
         }
     }
 }

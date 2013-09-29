@@ -19,7 +19,8 @@
 @property (nonatomic, strong) NSString *phoneNumber;
 @property (nonatomic, strong) NSMutableArray *tags;
 
-- (NSString*)sorterFirstName;
-- (NSString*)sorterLastName;
+- (NSString *)sorterFirstName;
+- (NSString *)sorterLastName;
+- (NSString *)getTagListString;
 
 @end
